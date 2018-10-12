@@ -28,12 +28,11 @@ public class TCPServer {
     
                 String fileName = clientData.readUTF();
                 System.out.println("Recieving file " + fileName +" for the " + nTimes + "th time.");
-                OutputStream output = new FileOutputStream(fileName);
-                long size = clientData.readLong();
-                byte[] buffer = new byte[1024];
-                while (size > 0 && (bytesRead = clientData.read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
-                    output.write(buffer, 0, bytesRead);
-                    size -= bytesRead;
+
+                int size = clientData.readInt();
+                byte[] buffer = new byte[size];
+                while (size > 0) {
+                    clientData.readFully(buffer,0,buffer.length);
                 }
                 
                 if(!checkDigest(buffer, originalBuffer)){
@@ -42,10 +41,9 @@ public class TCPServer {
                 }
                 System.out.println("Finishing recieving file " + fileName +" for the " + nTimes + "th time.");
                 
-                // Closing the FileOutputStream handle
+                // Closing
                 in.close();
                 clientData.close();
-                output.close();
                 Instant after = Instant.now();
                 long delta = Duration.between(before, after).toMillis();
                 all += delta;
@@ -76,15 +74,14 @@ public class TCPServer {
     public byte[] fileByteArray(){
 	File myFile = new File("/Users/jeremiahdixon/Desktop/Test1 - large.txt");
 	byte[] mybytearray = new byte[(int) myFile.length()]; 
-	FileInputStream fis;
-	DataInputStream dis;
+	FileInputStream fis2;
+	DataInputStream dis2;
 	try {
-	    fis = new FileInputStream(myFile);
-	    BufferedInputStream bis = new BufferedInputStream(fis);
+	    fis2 = new FileInputStream(myFile);
+	    BufferedInputStream bis = new BufferedInputStream(fis2);
               
-            dis = new DataInputStream(bis);     
-            dis.readFully(mybytearray, 0, mybytearray.length);
-	    //fis.read(mybytearray);
+            dis2 = new DataInputStream(bis);     
+            dis2.readFully(mybytearray, 0, mybytearray.length);
         }catch (IOException e) {
              e.printStackTrace();
         }

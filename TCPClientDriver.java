@@ -8,7 +8,7 @@ public class TCPClientDriver {
 		final int MAX = 100;
 		TCPClient client = new TCPClient();
 		try {
-			for (int i = 0; i <= MAX; i++) {
+			for (int i = 1; i <= MAX; i++) {
 				client.sendFile();
 			}
 		} catch (IOException e) {

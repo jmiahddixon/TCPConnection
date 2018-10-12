@@ -39,10 +39,7 @@ public class TCPClient {
             dos.writeUTF(myFile.getName());     
             dos.writeLong(mybytearray.length);     
             dos.write(mybytearray, 0, mybytearray.length);
-            dos.flush();  
-              
-            os.write(mybytearray, 0, mybytearray.length);  
-            os.flush();
+            dos.flush();
             System.out.println("I am finishing sending file " + myFile.getName() + " for the " + howMany + "th time.");
           } catch(FileNotFoundException e) {
             e.printStackTrace();
