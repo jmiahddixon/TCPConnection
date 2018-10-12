@@ -1,5 +1,3 @@
- 
-
 import java.io.*;
 import java.net.*;
 import java.time.*;
@@ -9,7 +7,7 @@ public class TCPClient {
     Socket sock;
     DataInputStream dis;
     DataOutputStream dos;
-    final String HOST = "192.168.1.245";
+    final String HOST = "168.27.161.212";
     final int PORT = 6789;
     int howMany = 1;
     long all = 0;
@@ -33,11 +31,8 @@ public class TCPClient {
             os = sock.getOutputStream();
             
             System.out.println("I am sending file " + myFile.getName() + " for the " + howMany + "th time.");
-            //Sending file name and file size to the server
             
-            dos = new DataOutputStream(os); 
-            dos.writeUTF(myFile.getName());     
-            dos.writeLong(mybytearray.length);     
+            dos = new DataOutputStream(os);      
             dos.write(mybytearray, 0, mybytearray.length);
             dos.flush();
             System.out.println("I am finishing sending file " + myFile.getName() + " for the " + howMany + "th time.");
